@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>جدول الرابع ب</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  --bg: #F6EFE2;            /* بيجي */
+  --paper: #FFFFFF;         /* أبيض */
+  --ink: #1E2B38;
+  --muted: #6B665A;
+  --line: #E6DBC6;
+  --accent: #7CCBF2;        /* سمائي */
+  --accent-ink: #0B2B40;
+  --accent-strong: #1B87C0;
+  --mark: #EBDDBF;          /* بيجي غامق */
+  --mark-ink: #3B2F1A;
+  --head-font: "Cairo", "Segoe UI", Tahoma, sans-serif;
+  --body-font: "IBM Plex Sans Arabic", "IBM Plex Sans", "Segoe UI", Tahoma, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111B25; --paper: #18242F; --ink: #EAF1F6; --muted: #A3B2BF;
+    --line: #2C3B49; --accent: #7CCBF2; --accent-ink: #0B2B40; --accent-strong: #7CCBF2;
+    --mark: #4A402E; --mark-ink: #F1E6CE;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111B25; --paper: #18242F; --ink: #EAF1F6; --muted: #A3B2BF;
+  --line: #2C3B49; --accent: #7CCBF2; --accent-ink: #0B2B40; --accent-strong: #7CCBF2;
+  --mark: #4A402E; --mark-ink: #F1E6CE;
+}
+*, *::before, *::after { box-sizing: inherit; }
+html { height: 100%; scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0; min-height: 100%;
+  background: var(--bg); color: var(--ink);
+  font-family: var(--body-font); font-size: 16px; line-height: 1.6;
+}
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 16px 40px; }
+
+/* Header styled like a squared notebook page */
+.masthead {
+  margin: 0 -16px 20px; padding: 28px 24px 22px;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border-bottom: 4px solid var(--accent);
+}
+.masthead h1 {
+  margin: 0; font-family: var(--head-font); font-weight: 800;
+  font-size: clamp(2.2rem, 8vw, 3.4rem); line-height: 1.2;
+  display: inline-block; padding: 0 10px;
+  background: var(--paper);
+}
+.masthead p { margin: 6px 0 0; display: inline-block; padding: 0 10px; background: var(--paper); color: var(--muted); }
+
+.switch { display: flex; gap: 8px; margin-bottom: 14px; }
+button {
+  font: inherit; color: inherit; cursor: pointer;
+  border: 1.5px solid var(--line); background: var(--paper);
+  border-radius: 10px; padding: 8px 18px; min-height: 44px;
+}
+button:focus-visible { outline: 3px solid var(--accent-strong); outline-offset: 2px; }
+button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+
+.days { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 16px; }
+.days button { white-space: nowrap; flex: 1 0 auto; position: relative; }
+.days button.today::after {
+  content: ""; position: absolute; top: 6px; inset-inline-end: 6px;
+  width: 8px; height: 8px; border-radius: 50%; background: var(--accent-strong);
+}
+
+/* Day view */
+.rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.row {
+  display: grid; grid-template-columns: 64px 1fr; background: var(--paper);
+  border: 1.5px solid var(--line); border-radius: 14px; overflow: hidden;
+}
+.no {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--mark); color: var(--mark-ink); padding: 8px 4px; text-align: center;
+  font-family: var(--head-font); line-height: 1.2;
+}
+.no b { font-size: 1.7rem; font-weight: 700; }
+.no span { font-size: .8rem; }
+.info { padding: 12px 16px; }
+.subject { font-family: var(--head-font); font-weight: 700; font-size: 1.35rem; margin: 0 0 6px; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 24px; color: var(--muted); font-size: .98rem; }
+.meta dt { display: inline; }
+.meta dd { display: inline; margin: 0; color: var(--ink); font-weight: 600; }
+.meta div { display: inline; }
+.free .subject { color: var(--muted); font-weight: 500; }
+.note { background: var(--paper); border: 1.5px dashed var(--line); border-radius: 14px; padding: 18px; text-align: center; color: var(--muted); margin-bottom: 12px; }
+
+/* Week view */
+.tablebox { overflow-x: auto; border: 1.5px solid var(--line); border-radius: 14px; background: var(--paper); }
+table { border-collapse: collapse; width: 100%; min-width: 720px; }
+th, td { border: 1px solid var(--line); padding: 10px 10px; vertical-align: top; text-align: right; }
+thead th { background: var(--accent); color: var(--accent-ink); font-family: var(--head-font); font-weight: 700; position: sticky; top: 0; }
+thead th.today { background: var(--mark); color: var(--mark-ink); }
+tbody th { background: var(--bg); font-family: var(--head-font); font-weight: 600; width: 78px; white-space: nowrap; }
+td.today { background: color-mix(in srgb, var(--mark) 45%, var(--paper)); }
+td .s { font-weight: 600; display: block; }
+td .m { display: block; color: var(--muted); font-size: .88rem; }
+td.free .s { color: var(--muted); font-weight: 400; }
+
+.meta dd { unicode-bidi: isolate; }
+th .t { display: block; direction: ltr; unicode-bidi: isolate; text-align: right; font-family: var(--body-font); font-size: .78rem; color: var(--muted); }
+.row.now { border-color: var(--accent-strong); box-shadow: 0 0 0 2px var(--accent-strong); }
+.badge { margin-inline-start: 10px; font-family: var(--body-font); font-size: .8rem; font-weight: 600; background: var(--accent); color: var(--accent-ink); padding: 2px 10px; border-radius: 999px; vertical-align: middle; }
+[hidden] { display: none !important; }
+@media (prefers-reduced-motion: no-preference) { .row { transition: transform .15s; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="masthead">
+    <h1>جدول الرابع ب</h1><br>
+    <p>الجدول الدراسي الأسبوعي</p>
+  </header>
+
+  <div class="switch" role="group" aria-label="طريقة العرض">
+    <button id="vDay" aria-pressed="true">يوم واحد</button>
+    <button id="vWeek" aria-pressed="false">الأسبوع كامل</button>
+  </div>
+
+  <section id="dayView">
+    <div class="days" id="days" role="group" aria-label="اختر اليوم"></div>
+    <div id="holiday" class="note" hidden>اليوم عطلة. هذا جدول يوم الأحد.</div>
+    <ol class="rows" id="rows"></ol>
+  </section>
+
+  <section id="weekView" hidden>
+    <div class="tablebox"><table id="table"></table></div>
+  </section>
+</main>
+
+<script>
+// ===== بيانات الجدول: [المادة، القاعة، المدرس] =====
+const DAYS = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس"];
+const ORD = ["الأول", "الثاني", "الثالث", "الرابع", "الخامس", "السادس"];
+const TIMES = [["8:00","8:40"],["8:45","9:25"],["9:30","10:10"],["10:15","10:55"],["11:00","11:40"],["11:45","12:25"]];
+const SCHEDULE = [
+  // الأحد
+  [["انكليزي","قاعة الانكليزية ٣","حسن ياسر"],["جرائم البعث","قاعة الاجتماعيات ٢","عامر عبدالرزاق"],["حاسوب","مختبر الحاسوب","عبدالله صاحب"],["اسلامية","قاعة الاسلامية ٢","سيد فراس"],["عربي","قاعة العربية ٢","علي عبود"],["كيمياء","قاعة الكيمياء ٢","هشام فاضل"]],
+  // الاثنين
+  [["اسلامية","قاعة الاسلامية ١","سيد فراس"],["رياضيات","قاعة الرياضيات ٣","سامر بشير"],["عربي","قاعة العربية ١","علي عبود"],["انكليزي","قاعة الانكليزية ١","حسن ياسر"],["احياء","قاعة الاحياء ٢","علي عبدالمهدي"],["مكتبة","مكتبة","هادي جميل"]],
+  // الثلاثاء
+  [["رياضيات","قاعة الرياضيات ٢","سامر بشير"],["حاسوب","مختبر الحاسوب","عبدالله صاحب"],["انكليزي","قاعة الانكليزية ١","حسن ياسر"],["احياء","قاعة الاحياء ١","علي عبدالمهدي"],["عربي","قاعة العربية ٣","علي عبود"],["رياضيات","قاعة الرياضيات ٢","سامر بشير"]],
+  // الأربعاء
+  [["انكليزي","قاعة الانكليزية ١","حسن ياسر"],["فيزياء","قاعة الفيزياء ٢","حيدر عامر"],["رياضة","ساحة","—"],["فرنسي","قاعة الفرنسية","علي محسن"],["عربي","قاعة العربية ٢","علي عبود"],["رياضيات","قاعة الرياضيات ٣","سامر بشير"]],
+  // الخميس
+  [["فيزياء","قاعة الفيزياء ٢","حيدر عامر"],["فنية","قاعة الفنية","ابي ذر حسون"],["انكليزي","قاعة الانكليزية ١","حسن ياسر"],["عربي","قاعة العربية ٢","علي عبود"],["احياء","قاعة الاسلامية ١","علي عبدالمهدي"],["كيمياء","قاعة الكيمياء ٢","هشام فاضل"]]
+];
+
+// ============================================================
+
+const jsDay = new Date().getDay();            // 0 = الأحد ... 4 = الخميس
+const todayIdx = jsDay >= 0 && jsDay <= 4 ? jsDay : -1;
+let current = todayIdx === -1 ? 0 : todayIdx;
+
+function isNow(i) {
+  const n = new Date(), m = n.getHours() * 60 + n.getMinutes();
+  const toMin = t => { const [h, mm] = t.split(":").map(Number); return h * 60 + mm; };
+  return m >= toMin(TIMES[i][0]) && m <= toMin(TIMES[i][1]);
+}
+const $ = id => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; };
+
+function renderDays() {
+  const box = $("days"); box.innerHTML = "";
+  DAYS.forEach((d, i) => {
+    const b = el("button", i === todayIdx ? "today" : "", d);
+    b.setAttribute("aria-pressed", String(i === current));
+    b.onclick = () => { current = i; renderDays(); renderRows(); };
+    box.appendChild(b);
+  });
+}
+
+function renderRows() {
+  const list = $("rows"); list.innerHTML = "";
+  $("holiday").hidden = todayIdx !== -1 || current !== 0;
+  SCHEDULE[current].forEach((p, i) => {
+    const li = el("li", "row" + (p ? "" : " free") + (current === todayIdx && isNow(i) ? " now" : ""));
+    const no = el("div", "no");
+    no.append(el("span", "", "الدرس"), el("b", "", String(i + 1)));
+    const info = el("div", "info");
+    if (p) {
+      const h = el("h2", "subject", p[0]);
+      if (li.classList.contains("now")) h.appendChild(el("span", "badge", "الآن"));
+      info.appendChild(h);
+      const dl = el("dl", "meta"); dl.style.margin = "0";
+      [["القاعة", p[1]], ["المدرس", p[2]], ["الوقت", TIMES[i][0] + " - " + TIMES[i][1]]].forEach(([k, v]) => {
+        const g = el("div"); const dd = el("dd", "", v); if (k === "الوقت") dd.dir = "ltr";
+        g.append(el("dt", "", k + ": "), dd); dl.appendChild(g);
+      });
+      info.appendChild(dl);
+    } else {
+      info.appendChild(el("h2", "subject", "لا يوجد درس"));
+    }
+    li.append(no, info); list.appendChild(li);
+  });
+}
+
+function renderTable() {
+  const t = $("table"); t.innerHTML = "";
+  const head = el("thead"); const hr = el("tr"); hr.appendChild(el("th", "", "الدرس"));
+  DAYS.forEach((d, i) => hr.appendChild(el("th", i === todayIdx ? "today" : "", d)));
+  head.appendChild(hr); t.appendChild(head);
+  const body = el("tbody");
+  ORD.forEach((o, r) => {
+    const tr = el("tr"); const th = el("th", "", o);
+    th.appendChild(el("span", "t", TIMES[r][0] + " - " + TIMES[r][1])); tr.appendChild(th);
+    DAYS.forEach((_, d) => {
+      const p = SCHEDULE[d][r];
+      const td = el("td", (d === todayIdx ? "today " : "") + (p ? "" : "free"));
+      if (p) { td.append(el("span", "s", p[0]), el("span", "m", "القاعة: " + p[1]), el("span", "m", "المدرس: " + p[2])); }
+      else td.appendChild(el("span", "s", "—"));
+      tr.appendChild(td);
+    });
+    body.appendChild(tr);
+  });
+  t.appendChild(body);
+}
+
+function setView(week) {
+  $("dayView").hidden = week; $("weekView").hidden = !week;
+  $("vDay").setAttribute("aria-pressed", String(!week));
+  $("vWeek").setAttribute("aria-pressed", String(week));
+  try { localStorage.setItem("view", week ? "week" : "day"); } catch (e) {}
+}
+$("vDay").onclick = () => setView(false);
+$("vWeek").onclick = () => setView(true);
+
+renderDays(); renderRows(); renderTable();
+try { if (localStorage.getItem("view") === "week") setView(true); } catch (e) {}
+</script>
+</body>
+</html>
